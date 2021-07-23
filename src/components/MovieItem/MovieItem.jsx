@@ -8,6 +8,7 @@ function MovieItem (props) {
             <img src={props.poster} />
             <p>{props.description}</p>
             <ul>
+                {/* iterates over genres present */}
                 {props.genres.map(genre =>{
                     return <li>{genre}</li>
                 })}
@@ -15,3 +16,5 @@ function MovieItem (props) {
         </>
     )
 }
+
+export default MovieItem;

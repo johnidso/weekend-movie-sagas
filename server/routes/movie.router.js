@@ -16,12 +16,12 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/details/:id', (req,res) => {
+router.get('/:id', (req,res) => {
   const queryText = `
-  SELECT movies.id AS movie_id, movies.title, movies.poster, movies.description, genres.name FROM movies_genres
+  SELECT movies.id AS movie_id, movies.title, movies.poster, movies.description, genres.name AS genre_name FROM movies_genres
   JOIN movies ON movies_genres.movie_id = movies.id
   JOIN genres ON movies_genres.genre_id = genres.id
-  WHERE movies.id = $1
+  WHERE movies.id = 1
   GROUP BY movies.id, genres.name;
   `;
   pool.query(queryText, [req.params])

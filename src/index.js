@@ -29,10 +29,10 @@ function* fetchAllMovies() {
     }       
 }
 
-function* fetchMovieDetail() {
+function* fetchMovieDetail(action) {
     // get a single movie detail from DB
     try {
-        const movieDetail = yield axios.get('/api/movie/:id');
+        const movieDetail = yield axios.get(`/api/movie/${action.payload}`);
         console.log('getting movie:', movieDetail.data);
         yield put({type: 'SET_MOVIE_DETAIL', payload: movieDetail.data})
     } catch (err) {

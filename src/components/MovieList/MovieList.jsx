@@ -12,8 +12,9 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    const handleClick = () => {
-        history.push(`/movie/${movie.id}`)
+    const handleClick = (event) => {
+        event.preventDefault();
+        history.push(`/movie/${event.target.id}`);
     }
 
     return (
@@ -24,7 +25,7 @@ function MovieList() {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <img onClick={handleClick} src={movie.poster} alt={movie.title}/>
+                            <img onClick={handleClick} id={movie.id} src={movie.poster} alt={movie.title}/>
                         </div>
                     );
                 })}

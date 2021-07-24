@@ -12,7 +12,6 @@ function MovieItem () {
         dispatch({type:'GET_MOVIE', payload: id});
     }, []);
     
-    
     return(
         <>
             {/* props might not be the way to go here - RESEARCH */}
@@ -23,8 +22,8 @@ function MovieItem () {
             <h2>Genres</h2>
             <ul>
                 {/* iterates over genres present */}
-                {movieResponse.map(movie =>{
-                    return <li>{movie.genre_name}</li>
+                {movieResponse.map((movie, index) =>{
+                    return <li key={index}>{movie.genre_name}</li>
                 })}
             </ul>
         </>

@@ -1,4 +1,5 @@
 const express = require('express');
+const { Router } = require('react-router-dom');
 const router = express.Router();
 const pool = require('../modules/pool')
 
@@ -13,8 +14,25 @@ router.get('/', (req, res) => {
       console.log('ERROR: Get all movies', err);
       res.sendStatus(500)
     })
-
 });
+
+router.get('/details/:id', (req,res) => {
+  const queryText = `
+  SELECT movies.id AS movie_id, movies.title, movies.poster, movies.description, genres.name FROM movies_genres
+  JOIN movies ON movies_genres.movie_id = movies.id
+  JOIN genres ON movies_genres.genre_id = genres.id
+  WHERE movies.id = $1
+  GROUP BY movies.id, genres.name;
+  `;
+  pool.query(queryText, [req.params])
+  .then( dbResponse => {
+    res.send(dbResponse.rows);
+  })
+  .catch(err => {
+    console.log('Error getting movie details:', err);
+    res.sendStatus(500);
+  })
+})
 
 router.post('/', (req, res) => {
   console.log(req.body);

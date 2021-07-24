@@ -1,10 +1,12 @@
-
+import { useParams } from "react-router-dom";
 
 function MovieItem (props) {
-    
+    const { id } = useParams();
+    // make a GET saga I can dispatch against to get specific movie info from an ID
     return(
         <>
-            <h1>{props.title}</h1>
+            {/* props might not be the way to go here - RESEARCH */}
+            <h1>{props.title}</h1> 
             <img src={props.poster} />
             <p>{props.description}</p>
             <ul>

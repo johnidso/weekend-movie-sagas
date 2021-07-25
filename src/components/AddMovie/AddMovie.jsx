@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import Button from '@material-ui/core/Button';
+import './AddMovie.css';
 
 
 function AddMovie () {
@@ -41,9 +43,7 @@ function AddMovie () {
     // Add Movie form 
     return (
         <>
-        <button onClick={()=> {
-            history.push('/');
-        }}>Back</button>
+        
         <form onSubmit={handleSubmit}>
             
             <input type='text' placeholder='movie title' value={newMovie.title} name='title' onChange={handleChange} />
@@ -57,8 +57,12 @@ function AddMovie () {
                     )
                 })}
             </select>
-            <button type='submit'>Submit</button>
-
+            <section id='buttons'>
+                <Button className='navButtons' variant="outlined" onClick={()=> {
+                history.push('/');
+                }}>Back</Button>
+                <Button className='navButtons' variant='contained' color='primary' type='submit'>Submit</Button>
+            </section>
         </form>
         </>
     )

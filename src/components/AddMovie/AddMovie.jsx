@@ -7,7 +7,6 @@ function AddMovie () {
     const [newMovie, setNewMovie] = useState(emptyMovie);
     const genres = useSelector(store => store.genres);
     const dispatch = useDispatch();
-    console.log('Current state', newMovie);
 
     // Get genres from store
     useEffect(() => {

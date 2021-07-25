@@ -15,7 +15,6 @@ function MovieItem () {
     return(
         <>
             {/* props might not be the way to go here - RESEARCH */}
-            <h2>Test</h2>
             <h1>{movieResponse[0].title}</h1> 
             <img src={movieResponse[0].poster} />
             <p>{movieResponse[0].description}</p>

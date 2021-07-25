@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 
 function AddMovie () {
     const emptyMovie = {title: '', poster: '', description:'', genre:'', genre_id: ''};
     const [newMovie, setNewMovie] = useState(emptyMovie);
+    const history = useHistory();
     const genres = useSelector(store => store.genres);
     const dispatch = useDispatch();
 
@@ -38,6 +40,9 @@ function AddMovie () {
     // Add Movie form 
     return (
         <>
+        <button onClick={()=> {
+            history.push('/');
+        }}>Back</button>
         <form onSubmit={handleSubmit}>
             
             <input type='text' placeholder='movie title' value={newMovie.title} name='title' onChange={handleChange} />

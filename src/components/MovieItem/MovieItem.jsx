@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useHistory } from "react-router";
 
 function MovieItem () {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
     const movieResponse = useSelector(store => store.movies);
 
     // make a GET saga I can dispatch against to get specific movie info from an ID
@@ -25,6 +27,10 @@ function MovieItem () {
                     return <li key={index}>{movie.genre_name}</li>
                 })}
             </ul>
+            <br />
+            <button onClick={()=> {
+                history.push('/');
+                }}>Back</button>
         </>
     )
 }

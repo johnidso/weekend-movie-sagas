@@ -35,35 +35,37 @@ function AddMovie () {
 
     // Post new movie 
     const handleSubmit = () => {
-        dispatch({type:'ADD_MOVIE', payload: newMovie});
-        setNewMovie(emptyMovie);
-        history.push('/');
+        if (!newMovie.title|!newMovie.poster|!newMovie.description) {
+            alert('Please fill all fields before submitting.')
+        } else {
+            dispatch({type:'ADD_MOVIE', payload: newMovie});
+            setNewMovie(emptyMovie);
+            history.push('/');
+        }
     }
 
     // Add Movie form 
     return (
         <>
-        
-        <form onSubmit={handleSubmit}>
-            
-            <input type='text' placeholder='movie title' value={newMovie.title} name='title' onChange={handleChange} />
-            <input type='text' placeholder='poster url' value={newMovie.poster} name='poster' onChange={handleChange}  />
-            <input type='text' placeholder='movie description' value={newMovie.description} name='description' onChange={handleChange} />
-            <select onChange={handleSelect} name='genre' value={newMovie.genre}>
-                {/* Iterate through all genres available from DB */}
-                {genres.map(genre => { 
-                    return (
-                    <option key={genre.id} name={genre.name}>{genre.name}</option>
-                    )
-                })}
-            </select>
-            <section id='buttons'>
-                <Button className='navButtons' variant="outlined" onClick={()=> {
-                history.push('/');
-                }}>Back</Button>
-                <Button className='navButtons' variant='contained' color='primary' type='submit'>Submit</Button>
-            </section>
-        </form>
+            <form onSubmit={handleSubmit}> 
+                <input type='text' placeholder='movie title' value={newMovie.title} name='title' onChange={handleChange} />
+                <input type='text' placeholder='poster url' value={newMovie.poster} name='poster' onChange={handleChange}  />
+                <input type='text' placeholder='movie description' value={newMovie.description} name='description' onChange={handleChange} />
+                <select onChange={handleSelect} name='genre' value={newMovie.genre}>
+                    {/* Iterate through all genres available from DB */}
+                    {genres.map(genre => { 
+                        return (
+                        <option key={genre.id} name={genre.name}>{genre.name}</option>
+                        )
+                    })}
+                </select>
+                <section id='buttons'>
+                    <Button className='navButtons' variant="outlined" onClick={()=> {
+                    history.push('/');
+                    }}>Back</Button>
+                    <Button className='navButtons' variant='contained' color='primary' type='submit'>Submit</Button>
+                </section>
+            </form>
         </>
     )
 }

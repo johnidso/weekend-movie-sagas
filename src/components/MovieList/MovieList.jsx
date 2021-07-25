@@ -3,17 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 import { useHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
-
+import { Paper } from '@material-ui/core';
 
 function MovieList() {
     const history = useHistory();
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
 
+    // Get all movies from DB
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
+    // Handle click of 'add a movie'
     const handleClick = (event) => {
         event.preventDefault();
         history.push(`/movie/${event.target.id}`);
@@ -28,10 +30,12 @@ function MovieList() {
             <section className="movies">
                 {movies.map(movie => {
                     return (
-                        <div key={movie.id} className='moviePosters' >
-                            <h3>{movie.title}</h3>
-                            <img onClick={handleClick} id={movie.id} src={movie.poster} alt={movie.title}/>
-                        </div>
+                            <div key={movie.id} className='moviePosters' >
+                                <h3>{movie.title}</h3>
+                                <Paper elevation={3}>
+                                    <img onClick={handleClick} id={movie.id} src={movie.poster} alt={movie.title}/>
+                                </Paper>
+                            </div>
                     );
                 })}
             </section>

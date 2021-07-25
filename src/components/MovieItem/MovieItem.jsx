@@ -11,14 +11,13 @@ function MovieItem () {
     const history = useHistory();
     const movieResponse = useSelector(store => store.movies);
 
-    // make a GET saga I can dispatch against to get specific movie info from an ID
+    // Dispatch to get specific movie by id
     useEffect(() => {
         dispatch({type:'GET_MOVIE', payload: id});
     }, []);
     
     return(
         <section id='movieContainer'>
-            {/* props might not be the way to go here - RESEARCH */}
             <h1>{movieResponse[0].title}</h1> 
             <section className='movieDetails'>
                 <img id='poster' src={movieResponse[0].poster} />

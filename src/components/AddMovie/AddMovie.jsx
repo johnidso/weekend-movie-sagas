@@ -35,6 +35,7 @@ function AddMovie () {
     const handleSubmit = () => {
         dispatch({type:'ADD_MOVIE', payload: newMovie});
         setNewMovie(emptyMovie);
+        history.push('/');
     }
 
     // Add Movie form 

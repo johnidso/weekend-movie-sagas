@@ -26,7 +26,7 @@ function AddMovie () {
     const handleSelect = event => {
         const value = event.target.value;
         setNewMovie({
-            ...newMovie, [event.target.name]: value, ['genre_id']: event.target.selectedIndex
+            ...newMovie, [event.target.name]: value, ['genre_id']: event.target.selectedIndex+1
         });
     }
 

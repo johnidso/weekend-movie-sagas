@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 // Import saga middleware
 import createSagaMiddleware from 'redux-saga';
-import { takeEvery, put } from 'redux-saga/effects';
+import { call, takeEvery, put } from '@redux-saga/core/effects';
 import axios from 'axios';
 
 // Create the rootSaga generator function
@@ -52,10 +52,10 @@ function* fetchGenres(){
     }
 }
 
-function* addMovie(){
+function* addMovie(action){
     // Add new movie input to DB
     try{
-        yield call(axios.post, '/', action.payload);
+        yield call(axios.post, '/api/movie', action.payload);
         yield put({type: 'FETCH_MOVIES'});
     } catch (err) {
         console.log('error adding new movie', err);

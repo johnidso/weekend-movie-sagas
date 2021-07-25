@@ -1,25 +1,53 @@
-const { useEffect } = require("react");
-const { useState } = require("react");
-const { useSelector } = require("react-redux");
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 
 function AddMovie () {
-    const [newMovie, setNewMovie] = useState({});
+    const emptyMovie = {title: '', poster: '', description:'', genre:''};
+    const [newMovie, setNewMovie] = useState(emptyMovie);
     const genres = useSelector(store => store.genres);
+    const dispatch = useDispatch();
+    console.log('Current state', newMovie);
+
+    // Get genres from store
     useEffect(() => {
         dispatch({type:'GET_GENRES'});
     }, []);
-    console.log(genres);
+
+    // Handle changes to state from several inputs 
+    const handleChange = event => {
+        const value = event.target.value;
+        setNewMovie({
+            ...newMovie, [event.target.name]: value
+        });
+    }
+
+    // Post new movie 
+    const handleSubmit = () => {
+        dispatch({type:'ADD_MOVIE', payload: newMovie});
+        setNewMovie(emptyMovie);
+    }
+
+    // Add Movie form 
     return (
-        <form>
-            <input type='text' name='title' placeholder='movie title' />
-            <input type='text' name='url' placeholder='movie poster url' />
-            <input type='text' name='description' placeholder='movie description' />
-            <select>
-                {}
+        <>
+        <form onSubmit={handleSubmit}>
+            
+            <input type='text' placeholder='movie title' value={newMovie.title} name='title' onChange={handleChange} />
+            <input type='text' placeholder='poster url' value={newMovie.poster} name='poster' onChange={handleChange}  />
+            <input type='text' placeholder='movie description' value={newMovie.description} name='description' onChange={handleChange} />
+            <select onChange={handleChange} name='genre' value={newMovie.genre}>
+                {/* Iterate through all genres available from DB */}
+                {genres.map(genre => { 
+                    return (
+                    <option key={genre.id} name={genre.name}>{genre.name}</option>
+                    )
+                })}
             </select>
-            <input type='submit' name='submit'>Submit</input>
+            <button type='submit'>Submit</button>
+
         </form>
+        </>
     )
 }
 

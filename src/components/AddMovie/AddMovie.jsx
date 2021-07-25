@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 function AddMovie () {
-    const emptyMovie = {title: '', poster: '', description:'', genre:''};
+    const emptyMovie = {title: '', poster: '', description:'', genre:'', genre_id: ''};
     const [newMovie, setNewMovie] = useState(emptyMovie);
     const genres = useSelector(store => store.genres);
     const dispatch = useDispatch();
@@ -22,6 +22,14 @@ function AddMovie () {
         });
     }
 
+    // Handle changes to the dropdown, specifically to accomodate passing the genre id
+    const handleSelect = event => {
+        const value = event.target.value;
+        setNewMovie({
+            ...newMovie, [event.target.name]: value, ['genre_id']: event.target.selectedIndex
+        });
+    }
+
     // Post new movie 
     const handleSubmit = () => {
         dispatch({type:'ADD_MOVIE', payload: newMovie});
@@ -36,7 +44,7 @@ function AddMovie () {
             <input type='text' placeholder='movie title' value={newMovie.title} name='title' onChange={handleChange} />
             <input type='text' placeholder='poster url' value={newMovie.poster} name='poster' onChange={handleChange}  />
             <input type='text' placeholder='movie description' value={newMovie.description} name='description' onChange={handleChange} />
-            <select onChange={handleChange} name='genre' value={newMovie.genre}>
+            <select onChange={handleSelect} name='genre' value={newMovie.genre}>
                 {/* Iterate through all genres available from DB */}
                 {genres.map(genre => { 
                     return (
